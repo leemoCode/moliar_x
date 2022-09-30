@@ -1,5 +1,5 @@
 <template>
-  <div class="equipment_name">{{ name }} + {{ num }}</div>
+  <div class="equipment_name" :style="eqNameStyle">{{ name }} + {{ num }}</div>
   <div v-for="item in equipmentPropertyList">
     <div v-if="property[item.key]">
       <span class="equipment_property_title">属性: </span>
@@ -12,7 +12,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { indexOf } from 'lodash';
+import { computed, defineComponent } from 'vue';
 import { useGameData } from '../../core/useGameData';
 
 export default defineComponent({
@@ -33,8 +34,46 @@ export default defineComponent({
       },
     },
   },
-  setup() {
+  setup(props) {
     const { equipmentPropertyList } = useGameData();
+
+    const eqNameStyle = computed(() => {
+      let fontWeight = 500;
+      // @ts-ignore
+      const num = parseInt(props.num);
+      if (num > 15) {
+        fontWeight = 550;
+      }
+
+      let color = '#EA24FA';
+      // @ts-ignore
+      const name = props.name;
+
+      if (
+        name.indexOf('天怒') !== -1 ||
+        name.indexOf('天哭') !== -1 ||
+        name.indexOf('天妒') !== -1
+      ) {
+        color = '#FF9210';
+      }
+
+      if (
+        name.indexOf('金晨曦') !== -1 ||
+        name.indexOf('笑苍生') !== -1 ||
+        name.indexOf('明镜台') !== -1
+      ) {
+        color = '#FAB924';
+      }
+
+      if (name.indexOf('珠联璧合') !== -1) {
+        color = '#A61EB1';
+      }
+
+      return {
+        'font-weight': fontWeight,
+        color: color,
+      };
+    });
 
     const resolvePercentNum = (key: string) => {
       if (
@@ -52,6 +91,8 @@ export default defineComponent({
     return {
       equipmentPropertyList,
       resolvePercentNum,
+
+      eqNameStyle,
     };
   },
 });
@@ -63,10 +104,11 @@ export default defineComponent({
 }
 
 .equipment_name {
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .equipment_property_content {
   font-size: 17px;
+  color: #AF7AC5;
 }
 </style>
