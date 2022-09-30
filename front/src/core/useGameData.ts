@@ -254,27 +254,27 @@ const equipmentTypeList = [
 
 const equipmentPropertyList = [
   {
-    name: '生命最大值提升',
+    name: '生命最大值',
     key: 'hp',
   },
   {
-    name: '生命值提升百分比',
+    name: '生命值百分比',
     key: 'hpPercent',
   },
   {
-    name: '物理攻击提升',
+    name: '物理攻击',
     key: 'physicalDamage',
   },
   {
-    name: '物理攻击提升百分比',
+    name: '物理攻击百分比',
     key: 'physicalDamagePercent',
   },
   {
-    name: '法术攻击提升',
+    name: '法术攻击',
     key: 'spellDamage',
   },
   {
-    name: '法术攻击提升百分比',
+    name: '法术攻击百分比',
     key: 'spellDamagePercent',
   },
   {
@@ -286,11 +286,11 @@ const equipmentPropertyList = [
     key: 'spellDefense',
   },
   {
-    name: '暴击率提升',
+    name: '暴击率',
     key: 'critPercent',
   },
   {
-    name: '暴击伤害提升',
+    name: '暴击伤害',
     key: 'critBoostNum',
   },
   {
@@ -310,7 +310,7 @@ const equipmentPropertyList = [
     key: 'spellReboundPercent',
   },
   {
-    name: '最终伤害提升百分比',
+    name: '最终伤害百分比',
     key: 'finalDamageBoostPercent',
   },
 ];
@@ -346,20 +346,20 @@ const getBasicProperty = (character: string) => {
   }
 };
 
-const ADDTION_1_5 = 0.08;
-const ADDTION_6_10 = 0.14;
+const ADDTION_1_5 = 0.04;
+const ADDTION_6_10 = 0.08;
 
 const ADDTION_LIST_OVER_10 = [
-  0.3, // 11
-  0.33, // 12
-  0.37, // 13
-  0.42, // 14
-  0.48, // 15
-  0.6, // 16
-  0.88, // 17
-  1.06, // 18
-  1.3, // 19
-  2, // 20
+  0.1, // 11
+  0.11, // 12
+  0.13, // 13
+  0.16, // 14
+  0.2, // 15
+  0.25, // 16
+  0.31, // 17
+  0.38, // 18
+  0.46, // 19
+  0.55, // 20
 ];
 
 const getEquipmentProperty = (
@@ -381,18 +381,23 @@ const getEquipmentProperty = (
       ADDTION_1_5 * (strengthenNum - 5 > 0 ? 5 : strengthenNum) +
       ADDTION_6_10 * (strengthenNum - 10 > 0 ? 5 : strengthenNum - 5);
 
-    for (let i = 10; i <= 20; i++) {
+    for (let i = 11; i <= 20; i++) {
       if (strengthenNum >= i) {
-        strengthenAddition += ADDTION_LIST_OVER_10[i - 10];
+        strengthenAddition += ADDTION_LIST_OVER_10[i - 11];
       }
     }
 
     if (propertyName !== 'character') {
       res +=
         // @ts-ignore
-        parseInt(equipmentProperty[propertyName] || 0) * strengthenAddition;
+        parseInt((equipmentProperty[propertyName] || 0) * strengthenAddition);
 
-        console.log('装备强化增益系数:', strengthenAddition);
+      console.log(
+        '强化等级:',
+        strengthenNum,
+        '装备强化增益系数:',
+        strengthenAddition
+      );
     }
   }
 
