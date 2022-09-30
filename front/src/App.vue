@@ -1,7 +1,7 @@
 <template>
   <!-- <UserInfoCreateForm /> -->
-  <!-- <UserInfoShowCard /> -->
-  <CharacterBasicProperty />
+  <UserInfoShowCard />
+  <!-- <CharacterBasicProperty /> -->
 </template>
 
 <script lang="ts">

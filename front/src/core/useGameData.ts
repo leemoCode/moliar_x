@@ -21,18 +21,197 @@ interface UseGameDataInterface {
   equipmentTypeList: { [key: string]: string }[];
   baseInfoList: { [key: string]: string }[];
   equipmentPropertyList: { [key: string]: string }[];
+  characterBasicPropertyList: { [key: string]: string }[];
+  characterBasicPropertyData: { [key: string]: string | number }[];
+
+  caculateTotalProperty: (data: PlayerInfoInterface) => {
+    [key: string]: string | number;
+  };
 }
 
-// demo
+const characterBasicPropertyList = [
+  {
+    name: '职业',
+    key: 'character',
+  },
+  {
+    name: '生命值',
+    key: 'hp',
+  },
+  {
+    name: '物理攻击',
+    key: 'physicalDamage',
+  },
+  {
+    name: '法术攻击',
+    key: 'spellDamage',
+  },
+  {
+    name: '物理防御',
+    key: 'physicalDefense',
+  },
+  {
+    name: '法术防御',
+    key: 'spellDefense',
+  },
+  {
+    name: '暴击率',
+    key: 'critPercent',
+  },
+  {
+    name: '暴击伤害',
+    key: 'critBoostNum',
+  },
+  {
+    name: '物理伤害减免',
+    key: 'physicalReductionPercent',
+  },
+  {
+    name: '法术伤害减免',
+    key: 'spellReductionPercent',
+  },
+  {
+    name: '物理伤害反弹',
+    key: 'physicalReboundPercent',
+  },
+  {
+    name: '法术伤害反弹',
+    key: 'spellReboundPercent',
+  },
+  {
+    name: '最终伤害增强',
+    key: 'finalDamageBoostPercent',
+  },
+];
+
 const characterBasicPropertyData = [
   {
     character: '武士',
     hp: 100000,
-    physicalDamage: 9000,
-    spellDamage: 1000,
-  }
+    physicalDamage: 10000,
+    spellDamage: 0,
+    physicalDefense: 3000,
+    spellDefense: 3000,
+    critPercent: 15,
+    critBoostNum: 150,
+    physicalReductionPercent: 0,
+    spellReductionPercent: 0,
+    physicalReboundPercent: 0,
+    spellReboundPercent: 0,
+    finalDamageBoostPercent: 5,
+  },
+  {
+    character: '力士',
+    hp: 167000,
+    physicalDamage: 6000,
+    spellDamage: 0,
+    physicalDefense: 5000,
+    spellDefense: 2200,
+    critPercent: 10,
+    critBoostNum: 120,
+    physicalReductionPercent: 10,
+    spellReductionPercent: 0,
+    physicalReboundPercent: 5,
+    spellReboundPercent: 0,
+    finalDamageBoostPercent: 0,
+  },
 
-]
+  {
+    character: '方士',
+    hp: 79000,
+    physicalDamage: 100,
+    spellDamage: 14600,
+    physicalDefense: 1200,
+    spellDefense: 2500,
+    critPercent: 12,
+    critBoostNum: 160,
+    physicalReductionPercent: 0,
+    spellReductionPercent: 5,
+    physicalReboundPercent: 0,
+    spellReboundPercent: 0,
+    finalDamageBoostPercent: 10,
+  },
+
+  {
+    character: '祭司',
+    hp: 120000,
+    physicalDamage: 100,
+    spellDamage: 7300,
+    physicalDefense: 2000,
+    spellDefense: 2600,
+    critPercent: 8,
+    critBoostNum: 115,
+    physicalReductionPercent: 5,
+    spellReductionPercent: 5,
+    physicalReboundPercent: 0,
+    spellReboundPercent: 0,
+    finalDamageBoostPercent: 3,
+  },
+
+  {
+    character: '射手',
+    hp: 85000,
+    physicalDamage: 12750,
+    spellDamage: 4000,
+    physicalDefense: 1100,
+    spellDefense: 2400,
+    critPercent: 9,
+    critBoostNum: 140,
+    physicalReductionPercent: 0,
+    spellReductionPercent: 50,
+    physicalReboundPercent: 0,
+    spellReboundPercent: 0,
+    finalDamageBoostPercent: 13,
+  },
+
+  {
+    character: '刺客',
+    hp: 94000,
+    physicalDamage: 9200,
+    spellDamage: 500,
+    physicalDefense: 2200,
+    spellDefense: 2300,
+    critPercent: 20,
+    critBoostNum: 190,
+    physicalReductionPercent: 0,
+    spellReductionPercent: 0,
+    physicalReboundPercent: 0,
+    spellReboundPercent: 0,
+    finalDamageBoostPercent: 11,
+  },
+
+  {
+    character: '墨者',
+    hp: 115000,
+    physicalDamage: 8500,
+    spellDamage: 9100,
+    physicalDefense: 4000,
+    spellDefense: 5000,
+    critPercent: 7,
+    critBoostNum: 130,
+    physicalReductionPercent: 10,
+    spellReductionPercent: 15,
+    physicalReboundPercent: 0,
+    spellReboundPercent: 0,
+    finalDamageBoostPercent: 6,
+  },
+
+  {
+    character: '幻师',
+    hp: 103000,
+    physicalDamage: 8000,
+    spellDamage: 8200,
+    physicalDefense: 2550,
+    spellDefense: 2750,
+    critPercent: 17,
+    critBoostNum: 170,
+    physicalReductionPercent: 3,
+    spellReductionPercent: 3,
+    physicalReboundPercent: 0,
+    spellReboundPercent: 0,
+    finalDamageBoostPercent: 8,
+  },
+];
 
 const equipmentTypeList = [
   {
@@ -159,11 +338,97 @@ const baseInfoList = [
   },
 ];
 
+const getBasicProperty = (character: string) => {
+  for (const item of characterBasicPropertyData) {
+    if (item.character === character) {
+      return item;
+    }
+  }
+};
+
+const ADDTION_1_5 = 0.08;
+const ADDTION_6_10 = 0.14;
+
+const ADDTION_LIST_OVER_10 = [
+  0.3, // 11
+  0.33, // 12
+  0.37, // 13
+  0.42, // 14
+  0.48, // 15
+  0.6, // 16
+  0.88, // 17
+  1.06, // 18
+  1.3, // 19
+  2, // 20
+];
+
+const getEquipmentProperty = (
+  data: PlayerInfoInterface,
+  propertyName: string
+) => {
+  let res = 0;
+
+  for (const eqItem of equipmentTypeList) {
+    const equipmentProperty = data[eqItem.key + '_property'];
+
+    // 强化等级
+    const strengthenNum = data[eqItem.key + '_num'] as number;
+
+    let strengthenAddition = 1;
+
+    // 0-10 强化计算
+    strengthenAddition +=
+      ADDTION_1_5 * (strengthenNum - 5 > 0 ? 5 : strengthenNum) +
+      ADDTION_6_10 * (strengthenNum - 10 > 0 ? 5 : strengthenNum - 5);
+
+    for (let i = 10; i <= 20; i++) {
+      if (strengthenNum >= i) {
+        strengthenAddition += ADDTION_LIST_OVER_10[i - 10];
+      }
+    }
+
+    if (propertyName !== 'character') {
+      res +=
+        // @ts-ignore
+        parseInt(equipmentProperty[propertyName] || 0) * strengthenAddition;
+
+        console.log('装备强化增益系数:', strengthenAddition);
+    }
+  }
+
+  return res || '';
+};
+
+const caculateTotalProperty = (data: PlayerInfoInterface) => {
+  // 单条属性 = 基础属性 + 装备属性 * 强化加成
+  const character = data.character || '';
+
+  // 基础属性
+  const basicProperty = getBasicProperty(character);
+
+  const res: PlayerInfoInterface = {};
+
+  for (const item of characterBasicPropertyList) {
+    // 装备加成
+    const equipmentProperty = getEquipmentProperty(data, item.key);
+
+    console.log('装备加成', item.key, equipmentProperty);
+    // @ts-ignore
+    res[item.key] = basicProperty[item.key] + equipmentProperty;
+  }
+
+  return res;
+};
+
 export const useGameData: () => UseGameDataInterface = function () {
   return {
     createData,
     baseInfoList,
     equipmentPropertyList,
     equipmentTypeList,
+    characterBasicPropertyList,
+    characterBasicPropertyData,
+
+    caculateTotalProperty,
   };
 };

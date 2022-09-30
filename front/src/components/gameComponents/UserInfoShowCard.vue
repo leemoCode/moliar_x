@@ -1,11 +1,21 @@
 <template>
   <el-card class="show_card">
     <h4>角色信息</h4>
-    <div class="base_info_list">
+    <el-card class="base_info_list">
       <div v-for="item in baseInfoList" class="base_info_item">
         {{ item.name }}: {{ testData[item.key] }}
       </div>
-    </div>
+    </el-card>
+    <el-card class="property_card">
+      <h4>属性</h4>
+
+      <div v-for="item in characterBasicPropertyList">
+        <span class="property_name">{{ item.name }}: </span>
+        <span class="property_num"
+          >{{ totoalProperty[item.key] }}{{ resolvePercentNum(item.name) }}</span
+        >
+      </div>
+    </el-card>
     <el-collapse>
       <el-collapse-item v-for="item in equipmentTypeList" :title="item.name">
         <UserInfoShowEquipment
@@ -109,13 +119,37 @@ export default defineComponent({
       ring2_num: '4',
     };
 
-    const { equipmentTypeList, baseInfoList } = useGameData();
+    const {
+      equipmentTypeList,
+      baseInfoList,
+      characterBasicPropertyList,
+      caculateTotalProperty,
+    } = useGameData();
+
+    const resolvePercentNum = (key: string) => {
+      if (
+        key.indexOf('暴击') !== -1 ||
+        key.indexOf('减免') !== -1 ||
+        key.indexOf('反弹') !== -1 ||
+        key.indexOf('增强') !== -1
+      ) {
+        return '%';
+      }
+      return '';
+    };
+
+    const totoalProperty = caculateTotalProperty(testData);
 
     return {
       testData,
 
       equipmentTypeList,
       baseInfoList,
+      characterBasicPropertyList,
+
+      resolvePercentNum,
+
+      totoalProperty,
     };
   },
 });
@@ -135,6 +169,7 @@ export default defineComponent({
 }
 
 .base_info_list {
+  width: 300px;
   margin-bottom: 30px;
 }
 
@@ -142,5 +177,25 @@ export default defineComponent({
   font-size: 18px;
   color: #7e7e7f;
   margin-bottom: 4px;
+}
+
+.property_card {
+  position: absolute;
+  right: 10%;
+  top: 7%;
+  width: 300px;
+  height: 420px;
+
+  padding: 15px;
+
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.property_name {
+  color: #7e7e7f;
+}
+.property_num {
+  color: #6e6ea8;
 }
 </style>

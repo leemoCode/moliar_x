@@ -22,8 +22,8 @@ export default defineComponent({
       default: '',
     },
     num: {
-      type: Number,
-      default: 0,
+      type: String,
+      default: '',
     },
     property: {
       type: Object,
