@@ -30,7 +30,7 @@ export default defineComponent({
 </script>
 <style scoped>
 .el-input {
-  height: 50px;
+  height: 30px;
   font-size: 20px;
 }
 </style>

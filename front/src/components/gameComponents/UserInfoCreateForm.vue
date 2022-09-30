@@ -1,13 +1,15 @@
 <template>
   <div class="create_form">
     <h1>基本信息</h1>
-    <el-card class="base_info">
-      <div v-for="item in baseInfoList">
-        {{ item.name }}:
-        <el-input v-model="createData[item.key]" />
-      </div>
-    </el-card>
-
+    <el-form :inline="true">
+      <el-form-item
+        v-for="item in baseInfoList"
+        :label="item.name"
+        class="base_info"
+      >
+        <el-input v-model="createData[item.key]" placeholder="Approved by" />
+      </el-form-item>
+    </el-form>
     <h2>装备</h2>
     <div class="equipment_info">
       <div v-for="item in equipmentTypeList.slice(0, 5)">
@@ -54,8 +56,9 @@
   </div>
 
   <el-input
+    class="data_input"
     :value="JSON.stringify(createData)"
-    style="margin-top: 30px; width: 1800px; height: 1000px; font-size: 30px"
+    style="margin-top: 30px; width: 300px; height: 600px; font-size: 16px"
     :rows="2"
     type="textarea"
     placeholder="Please input"
@@ -174,12 +177,13 @@ export default defineComponent({
 });
 </script>
 <style scoped>
-.el-input {
-  height: 50px;
-  font-size: 28px;
-}
 .create_form {
-  font-size: 28px;
+  font-size: 18px;
+}
+
+.el-input {
+  height: 30px;
+  font-size: 20px;
 }
 .base_info {
   width: 320px;
@@ -192,5 +196,11 @@ export default defineComponent({
 .equipment_item {
   width: 300px;
   margin-right: 20px;
+}
+
+.data_input {
+  position: fixed;
+  right: 5%;
+  top: 3%;
 }
 </style>

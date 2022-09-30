@@ -167,12 +167,7 @@ export default defineComponent({
 </script>
 <style scoped>
 .show_card {
-  width: 55%;
-
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  width: 60%;
 
   font-size: 24px;
 

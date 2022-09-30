@@ -1,7 +1,15 @@
 <template>
-  <UserInfoCreateForm />
-  <!-- <UserInfoShowCard /> -->
-  <!-- <CharacterBasicProperty /> -->
+  <el-tabs type="border-card" class="app_page">
+    <el-tab-pane label="构建角色数据">
+      <UserInfoCreateForm />
+    </el-tab-pane>
+    <el-tab-pane label="查看角色数据">
+      <UserInfoShowCard />
+    </el-tab-pane>
+    <el-tab-pane label="查看基础属性">
+      <CharacterBasicProperty />
+    </el-tab-pane>
+  </el-tabs>
 </template>
 
 <script lang="ts">
@@ -23,4 +31,4 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss"></style>
+<style></style>
