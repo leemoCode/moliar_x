@@ -1,6 +1,6 @@
 <template>
-  <!-- <UserInfoCreateForm /> -->
-  <UserInfoShowCard />
+  <UserInfoCreateForm />
+  <!-- <UserInfoShowCard /> -->
   <!-- <CharacterBasicProperty /> -->
 </template>
 

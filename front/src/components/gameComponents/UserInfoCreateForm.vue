@@ -10,7 +10,29 @@
 
     <h2>装备</h2>
     <div class="equipment_info">
-      <div v-for="item in equipmentTypeList">
+      <div v-for="item in equipmentTypeList.slice(0, 5)">
+        <el-card class="equipment_item">
+          <template #header>
+            <h3>{{ item.name }}</h3>
+          </template>
+
+          <div>
+            名称:
+            <el-input v-model="createData[item.key]" />
+            强化:
+            <el-input v-model="createData[item.key + '_num']" />
+
+            <UserInfoCreateEquipment
+              :data="createData[item.key + '_property']"
+            />
+          </div>
+        </el-card>
+      </div>
+    </div>
+
+    <h2>首饰</h2>
+    <div class="equipment_info">
+      <div v-for="item in equipmentTypeList.slice(5, 9)">
         <el-card class="equipment_item">
           <template #header>
             <h3>{{ item.name }}</h3>

@@ -31,6 +31,6 @@ export default defineComponent({
 <style scoped>
 .el-input {
   height: 50px;
-  font-size: 28px;
+  font-size: 20px;
 }
 </style>
