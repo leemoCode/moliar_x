@@ -9,7 +9,7 @@
     <el-card class="property_card">
       <h4>属性</h4>
 
-      <!-- 战斗力: {{ combatPower }} -->
+      战斗力: {{ combatPower }}
       <div v-for="item in characterBasicPropertyList">
         <span class="property_name">{{ item.name }}: </span>
         <span class="property_num"
@@ -33,7 +33,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { useGameData } from '../../core/useGameData';
-import { baseWS } from '../../core/userDataDB';
+import { baseWS, tianwuyan } from '../../core/userDataDB';
 
 import UserInfoShowEquipment from './UserInfoShowEquipment.vue';
 
@@ -43,13 +43,14 @@ export default defineComponent({
     UserInfoShowEquipment,
   },
   setup() {
-    const testData: { [key: string]: any } = baseWS;
+    const testData: { [key: string]: any } = tianwuyan;
 
     const {
       equipmentTypeList,
       baseInfoList,
       characterBasicPropertyList,
       caculateTotalProperty,
+      combatPower,
     } = useGameData();
 
     const resolvePercentNum = (key: string) => {
@@ -66,9 +67,6 @@ export default defineComponent({
     };
 
     const totoalProperty = caculateTotalProperty(testData);
-
-    // todo
-    const combatPower = 0;
 
     return {
       testData,

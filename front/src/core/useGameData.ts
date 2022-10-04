@@ -24,6 +24,8 @@ interface UseGameDataInterface {
   characterBasicPropertyList: { [key: string]: string }[];
   characterBasicPropertyData: { [key: string]: string | number }[];
 
+  combatPower: Ref<number>;
+
   caculateTotalProperty: (data: PlayerInfoInterface) => {
     [key: string]: string | number;
   };
@@ -404,6 +406,30 @@ const getEquipmentProperty = (
   return res || '';
 };
 
+let curUserTotalPorperty: PlayerInfoInterface = {};
+
+const combatPower = ref(0);
+
+const refreshCombatPower = () => {
+  let res =
+    parseInt(curUserTotalPorperty.hp as string) * 0.1 +
+    parseInt(curUserTotalPorperty.physicalDamage as string) * 1 +
+    parseInt(curUserTotalPorperty.spellDamage as string) * 0.9 +
+    parseInt(curUserTotalPorperty.physicalDefense as string) * 3.3 +
+    parseInt(curUserTotalPorperty.spellDefense as string) * 3.5 +
+    parseInt(curUserTotalPorperty.critPercent as string) * 550 +
+    parseInt(curUserTotalPorperty.critBoostNum as string) * 57 +
+    parseInt(curUserTotalPorperty.physicalReductionPercent as string) * 8000 +
+    parseInt(curUserTotalPorperty.spellReductionPercent as string) * 8300 +
+    parseInt(curUserTotalPorperty.physicalReboundPercent as string) * 7700 +
+    parseInt(curUserTotalPorperty.spellReboundPercent as string) * 8100 +
+    parseInt(curUserTotalPorperty.finalDamageBoostPercent as string) * 9600;
+
+  res = Math.round(res / 10);
+
+  combatPower.value = res;
+};
+
 const caculateTotalProperty = (data: PlayerInfoInterface) => {
   // 单条属性 = 基础属性 + 装备属性 * 强化加成
   const character = data.character || '';
@@ -422,6 +448,12 @@ const caculateTotalProperty = (data: PlayerInfoInterface) => {
     res[item.key] = basicProperty[item.key] + equipmentProperty;
   }
 
+  curUserTotalPorperty = res;
+
+  refreshCombatPower();
+
+  console.log('curUserTotalPorperty', curUserTotalPorperty, combatPower);
+
   return res;
 };
 
@@ -433,6 +465,8 @@ export const useGameData: () => UseGameDataInterface = function () {
     equipmentTypeList,
     characterBasicPropertyList,
     characterBasicPropertyData,
+
+    combatPower,
 
     caculateTotalProperty,
   };
