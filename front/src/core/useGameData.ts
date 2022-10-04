@@ -24,7 +24,7 @@ interface UseGameDataInterface {
   characterBasicPropertyList: { [key: string]: string }[];
   characterBasicPropertyData: { [key: string]: string | number }[];
 
-  combatPower: Ref<number>;
+  refreshCombatPower: (curUserTotalPorperty: PlayerInfoInterface) => number;
 
   caculateTotalProperty: (data: PlayerInfoInterface) => {
     [key: string]: string | number;
@@ -393,24 +393,13 @@ const getEquipmentProperty = (
       res +=
         // @ts-ignore
         parseInt((equipmentProperty[propertyName] || 0) * strengthenAddition);
-
-      console.log(
-        '强化等级:',
-        strengthenNum,
-        '装备强化增益系数:',
-        strengthenAddition
-      );
     }
   }
 
   return res || '';
 };
 
-let curUserTotalPorperty: PlayerInfoInterface = {};
-
-const combatPower = ref(0);
-
-const refreshCombatPower = () => {
+const refreshCombatPower = (curUserTotalPorperty: PlayerInfoInterface) => {
   let res =
     parseInt(curUserTotalPorperty.hp as string) * 0.1 +
     parseInt(curUserTotalPorperty.physicalDamage as string) * 1 +
@@ -427,7 +416,7 @@ const refreshCombatPower = () => {
 
   res = Math.round(res / 10);
 
-  combatPower.value = res;
+  return res;
 };
 
 const caculateTotalProperty = (data: PlayerInfoInterface) => {
@@ -443,16 +432,11 @@ const caculateTotalProperty = (data: PlayerInfoInterface) => {
     // 装备加成
     const equipmentProperty = getEquipmentProperty(data, item.key);
 
-    console.log('装备加成', item.key, equipmentProperty);
     // @ts-ignore
     res[item.key] = basicProperty[item.key] + equipmentProperty;
   }
 
-  curUserTotalPorperty = res;
-
-  refreshCombatPower();
-
-  console.log('curUserTotalPorperty', curUserTotalPorperty, combatPower);
+  console.log('curUserTotalPorperty', res, refreshCombatPower(res));
 
   return res;
 };
@@ -466,8 +450,7 @@ export const useGameData: () => UseGameDataInterface = function () {
     characterBasicPropertyList,
     characterBasicPropertyData,
 
-    combatPower,
-
+    refreshCombatPower,
     caculateTotalProperty,
   };
 };

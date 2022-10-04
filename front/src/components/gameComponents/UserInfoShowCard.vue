@@ -1,33 +1,36 @@
 <template>
-  <el-card class="show_card">
-    <h4>角色信息</h4>
-    <el-card class="base_info_list">
-      <div v-for="item in baseInfoList" class="base_info_item">
-        {{ item.name }}: {{ testData[item.key] }}
-      </div>
+  <div v-for="testData in dataShowList">
+    <el-card class="show_card">
+      <h4>角色信息</h4>
+      <el-card class="base_info_list">
+        <div v-for="item in baseInfoList" class="base_info_item">
+          {{ item.name }}: {{ testData[item.key] }}
+        </div>
+      </el-card>
+      <el-card class="property_card">
+        <h4>属性</h4>
+  
+        战斗力: {{ testData.combatPower }}
+        <div v-for="item in characterBasicPropertyList">
+          <span class="property_name">{{ item.name }}: </span>
+          <span class="property_num"
+            >{{ testData.totoalProperty[item.key]
+            }}{{ resolvePercentNum(item.name) }}</span
+          >
+        </div>
+      </el-card>
+      <el-collapse>
+        <el-collapse-item v-for="item in equipmentTypeList" :title="item.name">
+          <UserInfoShowEquipment
+            :name="testData[item.key]"
+            :num="testData[item.key + '_num']"
+            :property="testData[item.key + '_property']"
+          />
+        </el-collapse-item>
+      </el-collapse>
     </el-card>
-    <el-card class="property_card">
-      <h4>属性</h4>
 
-      战斗力: {{ combatPower }}
-      <div v-for="item in characterBasicPropertyList">
-        <span class="property_name">{{ item.name }}: </span>
-        <span class="property_num"
-          >{{ totoalProperty[item.key]
-          }}{{ resolvePercentNum(item.name) }}</span
-        >
-      </div>
-    </el-card>
-    <el-collapse>
-      <el-collapse-item v-for="item in equipmentTypeList" :title="item.name">
-        <UserInfoShowEquipment
-          :name="testData[item.key]"
-          :num="testData[item.key + '_num']"
-          :property="testData[item.key + '_property']"
-        />
-      </el-collapse-item>
-    </el-collapse>
-  </el-card>
+  </div>
 </template>
 
 <script lang="ts">
@@ -43,14 +46,12 @@ export default defineComponent({
     UserInfoShowEquipment,
   },
   setup() {
-    const testData: { [key: string]: any } = tianwuyan;
-
     const {
       equipmentTypeList,
       baseInfoList,
       characterBasicPropertyList,
       caculateTotalProperty,
-      combatPower,
+      refreshCombatPower,
     } = useGameData();
 
     const resolvePercentNum = (key: string) => {
@@ -66,25 +67,30 @@ export default defineComponent({
       return '';
     };
 
-    const totoalProperty = caculateTotalProperty(testData);
+    const dataShowList = [tianwuyan, baseWS];
+
+    for (const item of dataShowList) {
+      // @ts-ignore
+      item.totoalProperty = caculateTotalProperty(item as { [key: string]: any });
+      // @ts-ignore
+      item.combatPower = refreshCombatPower(item.totoalProperty);
+    }
 
     return {
-      testData,
+      dataShowList,
 
       equipmentTypeList,
       baseInfoList,
       characterBasicPropertyList,
 
       resolvePercentNum,
-
-      totoalProperty,
-      combatPower,
     };
   },
 });
 </script>
 <style scoped>
 .show_card {
+  position: relative;
   width: 60%;
 
   font-size: 24px;
