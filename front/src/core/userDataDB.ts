@@ -1,4 +1,4 @@
-export const baseWS = {
+const baseWS = {
   arms_property: {
     critPercent: '1',
     critBoostNum: '9',
@@ -96,7 +96,7 @@ export const baseWS = {
   ring2_num: '12',
 };
 
-export const tianwuyan = {
+const tianwuyan = {
   arms_property: {
     critPercent: '2',
     critBoostNum: '10',
@@ -184,3 +184,105 @@ export const tianwuyan = {
   ring1_num: '19',
   ring2_num: '20',
 };
+
+const zoubeiye = {
+  name: '邹北业',
+  level: '70',
+  character: '武士',
+  gang: '黄埔军校',
+  country: '楚',
+  arms: '天怒·奔雷',
+  arms_num: '19',
+  arms_property: {
+    physicalDamage: '10975',
+    physicalDamagePercent: '3.6',
+    critPercent: '2.7',
+    critBoostNum: '15',
+    finalDamageBoostPercent: '2.86',
+  },
+  head_property: {
+    hp: '42055',
+    physicalReductionPercent: '2',
+    spellReductionPercent: '2',
+    physicalDefense: '5500',
+    spellDefense: '5377',
+  },
+  cloth_property: {
+    hp: '42755',
+    physicalReductionPercent: '1.5',
+    spellReductionPercent: '2',
+    physicalDefense: '5470',
+    spellDefense: '5379',
+  },
+  pants_property: {
+    hp: '',
+    physicalDamage: '9996',
+    critPercent: '3',
+    critBoostNum: '16.2',
+  },
+  shoes_property: {
+    hp: '40187',
+    physicalReductionPercent: '2',
+    spellReductionPercent: '1.7',
+    physicalDefense: '5560',
+    spellDefense: '5688',
+  },
+  necklace_property: {
+    hp: '25798',
+    hpPercent: '2.4',
+    physicalReductionPercent: '1.1',
+    spellReductionPercent: '1.2',
+    finalDamageBoostPercent: '1.8',
+  },
+  pendant_property: {
+    hp: '27631',
+    hpPercent: '2.95',
+    physicalReductionPercent: '1.2',
+    spellReductionPercent: '0.96',
+    finalDamageBoostPercent: '1.5',
+  },
+  ring1_property: {
+    hp: '',
+    hpPercent: '',
+    physicalDamage: '14765',
+    finalDamageBoostPercent: '',
+  },
+  ring2_property: {
+    hp: '',
+    physicalDamage: '14596',
+    finalDamageBoostPercent: '',
+  },
+  head: '金晨曦·枯泉战盔',
+  cloth: '金晨曦·枯泉战甲',
+  pants: '塞鸿秋',
+  shoes: '金晨曦·枯泉战靴',
+  head_num: '17',
+  cloth_num: '17',
+  pants_num: '20',
+  shoes_num: '17',
+  necklace: '金晨曦·锁江链',
+  pendant: '金晨曦·锁江坠',
+  necklace_num: '17',
+  pendant_num: '18',
+  ring1: '泪泉',
+  ring2: '泪泉',
+  ring1_num: '20',
+  ring2_num: '20',
+  totoalProperty: {
+    hp: 620796,
+    physicalDamage: 219999,
+    spellDamage: '0',
+    physicalDefense: 50275,
+    spellDefense: 50028,
+    critPercent: 36,
+    critBoostNum: 273,
+    physicalReductionPercent: 20,
+    spellReductionPercent: 20,
+    physicalReboundPercent: '0',
+    spellReboundPercent: '0',
+    finalDamageBoostPercent: 24,
+  },
+  combatPower: 121485,
+};
+
+export const db = [baseWS, tianwuyan, zoubeiye];

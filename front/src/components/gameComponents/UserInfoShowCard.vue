@@ -1,42 +1,68 @@
 <template>
-  <div v-for="testData in dataShowList">
-    <el-card class="show_card">
-      <h4>角色信息</h4>
-      <el-card class="base_info_list">
-        <div v-for="item in baseInfoList" class="base_info_item">
-          {{ item.name }}: {{ testData[item.key] }}
-        </div>
-      </el-card>
-      <el-card class="property_card">
-        <h4>属性</h4>
-  
-        战斗力: {{ testData.combatPower }}
-        <div v-for="item in characterBasicPropertyList">
-          <span class="property_name">{{ item.name }}: </span>
-          <span class="property_num"
-            >{{ testData.totoalProperty[item.key]
-            }}{{ resolvePercentNum(item.name) }}</span
-          >
-        </div>
-      </el-card>
-      <el-collapse>
-        <el-collapse-item v-for="item in equipmentTypeList" :title="item.name">
-          <UserInfoShowEquipment
-            :name="testData[item.key]"
-            :num="testData[item.key + '_num']"
-            :property="testData[item.key + '_property']"
-          />
-        </el-collapse-item>
-      </el-collapse>
-    </el-card>
+  <div class="demo-collapse">
+    <el-collapse>
+      <el-collapse-item v-for="dataShowItem in dataShowList">
+        <template #title>
+          {{ dataShowItem.name }}
+        </template>
+        <div class="user_card_item">
+          <div class="left_box shadow_box">
+            <div class="s_left_box shadow_box">
+              <div v-for="item in baseInfoList" class="base_info_item">
+                {{ item.name }}: {{ dataShowItem[item.key] || '无' }}
+              </div>
 
+              <el-divider />
+
+              <div class="property_title">战斗力：</div>
+
+              <div class="user_combatPower">
+                {{ dataShowItem.combatPower }}
+              </div>
+
+              <el-divider />
+
+              <div class="property_title">属性：</div>
+              <div
+                v-for="item in characterBasicPropertyList"
+                class="property_item"
+              >
+                <span class="property_name">{{ item.name }}: </span>
+                <span class="property_num">
+                  {{ dataShowItem.totoalProperty[item.key] }}
+                  {{ resolvePercentNum(item.name) }}
+                </span>
+              </div>
+            </div>
+            <div class="s_center_box">
+              <div v-for="item in equipmentTypeList.slice(0, 5)">
+                <UserInfoShowEquipment
+                  :name="dataShowItem[item.key]"
+                  :num="dataShowItem[item.key + '_num']"
+                  :property="dataShowItem[item.key + '_property']"
+                />
+              </div>
+            </div>
+            <div class="s_right_box">
+              <div v-for="item in equipmentTypeList.slice(5, 9)">
+                <UserInfoShowEquipment
+                  :name="dataShowItem[item.key]"
+                  :num="dataShowItem[item.key + '_num']"
+                  :property="dataShowItem[item.key + '_property']"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </el-collapse-item>
+    </el-collapse>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { useGameData } from '../../core/useGameData';
-import { baseWS, tianwuyan } from '../../core/userDataDB';
+import { db } from '../../core/userDataDB';
 
 import UserInfoShowEquipment from './UserInfoShowEquipment.vue';
 
@@ -67,11 +93,13 @@ export default defineComponent({
       return '';
     };
 
-    const dataShowList = [tianwuyan, baseWS];
+    const dataShowList = db;
 
     for (const item of dataShowList) {
       // @ts-ignore
-      item.totoalProperty = caculateTotalProperty(item as { [key: string]: any });
+      item.totoalProperty = caculateTotalProperty(
+        item as { [key: string]: any }
+      );
       // @ts-ignore
       item.combatPower = refreshCombatPower(item.totoalProperty);
     }
@@ -89,43 +117,55 @@ export default defineComponent({
 });
 </script>
 <style scoped>
-.show_card {
-  position: relative;
-  width: 60%;
-
-  font-size: 24px;
-
-  margin: 30px;
+.shadow_box {
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.12);
+  padding: 30px;
+}
+.user_card_item {
+  display: flex;
 }
 
-.base_info_list {
-  width: 300px;
-  margin-bottom: 30px;
+.left_box {
+  flex: 1;
+  display: flex;
+
+  margin-right: 30px;
+
+  font-size: 22px;
+}
+.s_center_box {
+  flex: 1;
+  padding: 25px;
+}
+
+.s_left_box {
+  width: 400px;
+  margin-right: 40px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.s_right_box {
+  flex: 1;
+  padding: 25px;
 }
 
 .base_info_item {
-  font-size: 18px;
-  color: #7e7e7f;
-  margin-bottom: 4px;
+  font-size: 19px;
+  color: #828181;
 }
 
-.property_card {
-  position: absolute;
-  right: 10%;
-  top: 7%;
-  width: 300px;
-  height: 420px;
-
-  padding: 15px;
-
-  font-size: 18px;
-  line-height: 24px;
+.user_combatPower {
+  color: #828181;
+}
+.property_title {
+  margin-bottom: 17px;
+  color: #737171;
 }
 
-.property_name {
-  color: #7e7e7f;
-}
-.property_num {
-  color: #6e6ea8;
+.property_item {
+  font-size: 19px;
+  color: #828181;
 }
 </style>

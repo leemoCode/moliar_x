@@ -1,5 +1,9 @@
 <template>
   <div class="create_form">
+    <el-button @click="add">新建</el-button>
+    <el-button v-for="item in db" @click="update(item)">{{
+      item.name
+    }}</el-button>
     <h1>基本信息</h1>
     <el-form :inline="true">
       <el-form-item
@@ -63,13 +67,23 @@
     type="textarea"
     placeholder="Please input"
   />
+  <el-card class="property_card">
+    <div v-for="item in characterBasicPropertyList">
+      <span class="property_name">{{ item.name }}: </span>
+      <span class="property_num">
+        {{ totoalProperty[item.key] }}
+        {{ resolvePercentNum(item.name) }}
+      </span>
+    </div>
+  </el-card>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 import UserInfoCreateEquipment from './UserInfoCreateEquipment.vue';
 
 import { useGameData } from '../../core/useGameData';
+import { db } from '../../core/userDataDB';
 
 export default defineComponent({
   name: 'UserInfoCreateForm',
@@ -77,101 +91,69 @@ export default defineComponent({
     UserInfoCreateEquipment,
   },
   setup() {
-    const { equipmentTypeList, baseInfoList } = useGameData();
+    const {
+      equipmentTypeList,
+      baseInfoList,
+      characterBasicPropertyList,
+      caculateTotalProperty,
+    } = useGameData();
 
-    const createData = ref({
-      arms_property: {
-        critPercent: '5',
-        critBoostNum: '11',
-        finalDamageBoostPercent: '6',
-        physicalDamagePercent: '11',
-        physicalDamage: '9776',
-      },
-      head_property: {
-        physicalReductionPercent: '4',
-        spellReductionPercent: '2',
-        physicalDefense: '2200',
-        spellDefense: '1700',
-        hpPercent: '3',
-      },
-      cloth_property: {
-        physicalReductionPercent: '2',
-        spellReductionPercent: '3',
-        hpPercent: '5',
-        hp: '33500',
-        physicalDefense: '2600',
-      },
-      pants_property: {
-        physicalReductionPercent: '2',
-        spellReductionPercent: '2',
-        hpPercent: '3',
-        spellDefense: '2000',
-        hp: '42000',
-      },
-      shoes_property: {
-        physicalReductionPercent: '1',
-        spellReductionPercent: '3',
-        hpPercent: '2',
-        hp: '27890',
-        spellDefense: '2600',
-      },
-      necklace_property: {
-        hp: '15000',
-        physicalDamage: '3500',
-        finalDamageBoostPercent: '2',
-        hpPercent: '2',
-        physicalDamagePercent: '2',
-      },
-      pendant_property: {
-        hp: '14972',
-        physicalDamage: '2227',
-        physicalDefense: '1765',
-        critBoostNum: '9',
-        critPercent: '3',
-      },
-      ring1_property: {
-        hp: '13984',
-        physicalDamage: '2987',
-        physicalDamagePercent: '1',
-        physicalDefense: '1666',
-        finalDamageBoostPercent: '1',
-      },
-      ring2_property: {
-        hp: '19888',
-        physicalDamage: '1977',
-        critPercent: '2',
-        critBoostNum: '7',
-        physicalReductionPercent: '2',
-      },
-      name: '天无言',
-      level: '70',
-      character: '墨者',
-      gang: '-名剑山庄-',
-      country: '齐',
-      arms: '笑苍生·摧城',
-      arms_num: '17',
-      head: '明镜台·望边战盔',
-      head_num: '15',
-      cloth: '明镜台·望边战甲',
-      cloth_num: '15',
-      pants: '明镜台·望边裳',
-      shoes: '明镜台·望边战靴',
-      pants_num: '15',
-      shoes_num: '15',
-      necklace: '皓灵链',
-      pendant: '皓灵坠',
-      ring1: '皓灵戒',
-      ring2: '皓灵戒',
-      necklace_num: '17',
-      pendant_num: '18',
-      ring1_num: '19',
-      ring2_num: '20',
+    const demo = {
+      arms_property: {},
+      head_property: {},
+      cloth_property: {},
+      pants_property: {},
+      shoes_property: {},
+      necklace_property: {},
+      pendant_property: {},
+      ring1_property: {},
+      ring2_property: {},
+    };
+    const createData = ref(demo);
+
+    const add = () => {
+      // @ts-ignore
+      createData.value = demo;
+    };
+
+    const update = (data: any) => {
+      createData.value = data;
+    };
+
+    const totoalProperty = computed(() => {
+      // @ts-ignore
+      if (!createData.value.name) {
+        return {};
+      }
+      // @ts-ignore
+      return caculateTotalProperty(createData.value);
     });
+
+    const resolvePercentNum = (key: string) => {
+      if (
+        key.indexOf('暴击') !== -1 ||
+        key.indexOf('减免') !== -1 ||
+        key.indexOf('反弹') !== -1 ||
+        key.indexOf('增强') !== -1 ||
+        key.indexOf('百分比') !== -1
+      ) {
+        return '%';
+      }
+      return '';
+    };
 
     return {
       baseInfoList,
       createData,
       equipmentTypeList,
+      db,
+
+      add,
+      update,
+
+      totoalProperty,
+      characterBasicPropertyList,
+      resolvePercentNum,
     };
   },
 });
@@ -202,5 +184,12 @@ export default defineComponent({
   position: fixed;
   right: 5%;
   top: 3%;
+}
+
+.property_card {
+  position: fixed;
+  right: 22%;
+  top: 5%;
+  font-size: 12px;
 }
 </style>

@@ -33,10 +33,6 @@ interface UseGameDataInterface {
 
 const characterBasicPropertyList = [
   {
-    name: '职业',
-    key: 'character',
-  },
-  {
     name: '生命值',
     key: 'hp',
   },
