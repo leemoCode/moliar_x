@@ -99,7 +99,7 @@ export default defineComponent({
 </script>
 <style scoped>
 .equipment_property_title {
-  font-size: 17px;
+  font-size: 14px;
   color: #7e7e7f;
 }
 
@@ -108,7 +108,7 @@ export default defineComponent({
 }
 
 .equipment_property_content {
-  font-size: 17px;
+  font-size: 13px;
   color: #AF7AC5;
 }
 </style>

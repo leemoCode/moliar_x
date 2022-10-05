@@ -131,7 +131,7 @@ export default defineComponent({
 
   margin-right: 30px;
 
-  font-size: 22px;
+  font-size: 16px;
 }
 .s_center_box {
   flex: 1;
@@ -152,7 +152,7 @@ export default defineComponent({
 }
 
 .base_info_item {
-  font-size: 19px;
+  font-size: 14px;
   color: #828181;
 }
 
@@ -165,7 +165,7 @@ export default defineComponent({
 }
 
 .property_item {
-  font-size: 19px;
+  font-size: 14px;
   color: #828181;
 }
 </style>
