@@ -23,6 +23,7 @@ interface UseGameDataInterface {
   equipmentPropertyList: { [key: string]: string }[];
   characterBasicPropertyList: { [key: string]: string }[];
   characterBasicPropertyData: { [key: string]: string | number }[];
+  equipmentData: { [key: string]: string | number }[];
 
   refreshCombatPower: (curUserTotalPorperty: PlayerInfoInterface) => number;
 
@@ -32,6 +33,10 @@ interface UseGameDataInterface {
 }
 
 const characterBasicPropertyList = [
+  {
+    name: '职业',
+    key: 'character',
+  },
   {
     name: '生命值',
     key: 'hp',
@@ -313,6 +318,97 @@ const equipmentPropertyList = [
   },
 ];
 
+const equipmentData = [
+  {
+    character: '武士',
+    c: '天怒·旷野孤疆',
+    s: '金晨曦·泣血',
+    q: '珠联璧合·紫龙寂地',
+    y: '绝世教主·破阵',
+    j: '',
+  },
+  {
+    character: '刺客',
+    c: '天怒·罪棘刺薇',
+    s: '金晨曦·洞虚灵蛇',
+    q: '珠联璧合·残月惊天',
+    y: '绝世教主·九耀',
+    j: '',
+  },
+  {
+    character: '力士',
+    c: '天劫·沉夜重雪',
+    s: '笑苍生·四面边声',
+    q: '珠联璧合·涅槃',
+    y: '绝世教主·苍狼',
+    j: '',
+  },
+  {
+    character: '墨者',
+    c: '天劫·威风吟',
+    s: '笑苍生·岩鳞',
+    q: '珠联璧合·周流星位',
+    y: '绝世教主·无妄',
+    j: '',
+  },
+  {
+    character: '方士-奶',
+    c: '天哭·月升海楼',
+    s: '白云烟·风雪关河',
+    q: '珠联璧合·兰亭香雪',
+    y: '绝世教主·凤凰',
+    j: '',
+  },
+  {
+    character: '方士-输出',
+    c: '天哭·璃光浮远',
+    s: '白云烟·日月之昭',
+    q: '珠联璧合·兰亭香雪',
+    y: '绝世教主·凤凰',
+    j: '',
+  },
+  {
+    character: '祭司-奶',
+    c: '天哭·众灵生息',
+    s: '白云烟·烛幽',
+    q: '珠联璧合·灵知',
+    y: '绝世教主·重阳',
+    j: '',
+  },
+  {
+    character: '祭司-输出',
+    c: '天哭·墨语沉香',
+    s: '白云烟·昆山玉碎',
+    q: '珠联璧合·灵知',
+    y: '绝世教主·重阳',
+    j: '',
+  },
+  {
+    character: '射手',
+    c: '天妒·苍冥游',
+    s: '靛沧海·东河轻风',
+    q: '珠联璧合·造化异轨',
+    y: '绝世教主·鸿鹄',
+    j: '',
+  },
+  {
+    character: '幻师-奶',
+    c: '天妒·玉叶瑶华',
+    s: '靛沧海·求仁',
+    q: '珠联璧合·青玉流',
+    y: '绝世教主·天君',
+    j: '',
+  },
+  {
+    character: '幻师-输出',
+    c: '天妒·天音非梦',
+    s: '靛沧海·天下士人',
+    q: '珠联璧合·青玉流',
+    y: '绝世教主·天君',
+    j: '',
+  },
+];
+
 const baseInfoList = [
   {
     name: '名称',
@@ -445,6 +541,7 @@ export const useGameData: () => UseGameDataInterface = function () {
     equipmentTypeList,
     characterBasicPropertyList,
     characterBasicPropertyData,
+    equipmentData,
 
     refreshCombatPower,
     caculateTotalProperty,

@@ -3,7 +3,7 @@
     <el-collapse>
       <el-collapse-item v-for="dataShowItem in dataShowList">
         <template #title>
-          {{ dataShowItem.name }}
+          {{ dataShowItem.name }} - {{ dataShowItem.combatPower }}
         </template>
         <div class="user_card_item">
           <div class="left_box shadow_box">
@@ -105,6 +105,11 @@ export default defineComponent({
       // @ts-ignore
       item.combatPower = refreshCombatPower(item.totoalProperty);
     }
+
+    dataShowList.sort((a, b) => {
+      // @ts-ignore
+      return b.combatPower - a.combatPower;
+    });
 
     return {
       dataShowList,

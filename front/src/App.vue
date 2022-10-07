@@ -9,6 +9,9 @@
     <el-tab-pane label="查看基础属性">
       <CharacterBasicProperty />
     </el-tab-pane>
+    <el-tab-pane label="查看装备数据">
+      <EquipmentData />
+    </el-tab-pane>
   </el-tabs>
 </template>
 
@@ -17,6 +20,7 @@ import { defineComponent } from 'vue';
 import UserInfoCreateForm from './components/gameComponents/UserInfoCreateForm.vue';
 import UserInfoShowCard from './components/gameComponents/UserInfoShowCard.vue';
 import CharacterBasicProperty from './components/gameComponents/CharacterBasicProperty.vue';
+import EquipmentData from './components/gameComponents/EquipmentData.vue';
 
 export default defineComponent({
   name: 'App',
@@ -24,6 +28,7 @@ export default defineComponent({
     UserInfoCreateForm,
     UserInfoShowCard,
     CharacterBasicProperty,
+    EquipmentData,
   },
   setup() {
     return {};

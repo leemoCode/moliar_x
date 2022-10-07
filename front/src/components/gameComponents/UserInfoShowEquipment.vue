@@ -60,7 +60,8 @@ export default defineComponent({
       if (
         name.indexOf('天怒') !== -1 ||
         name.indexOf('天哭') !== -1 ||
-        name.indexOf('天妒') !== -1
+        name.indexOf('天妒') !== -1 ||
+        name.indexOf('天劫') !== -1
       ) {
         color = '#CF270C';
       }
@@ -68,7 +69,8 @@ export default defineComponent({
       if (
         name.indexOf('金晨曦') !== -1 ||
         name.indexOf('笑苍生') !== -1 ||
-        name.indexOf('明镜台') !== -1
+        name.indexOf('白云烟') !== -1 ||
+        name.indexOf('靛沧海') !== -1
       ) {
         color = '#FAB924';
       }
@@ -102,7 +104,7 @@ export default defineComponent({
 
       const style1 = {
         // 紫色
-        color: '#BD23D6',
+        color: '#EA24FA',
       };
 
       const style2 = {
@@ -121,8 +123,6 @@ export default defineComponent({
         color: '#F967B9',
         'font-weight': 550,
       };
-
-      
 
       const analysisData = (
         num1: number,
@@ -274,6 +274,6 @@ export default defineComponent({
 
 .equipment_property_content {
   font-size: 13px;
-  color: #af7ac5;
+  color: #6474FB;
 }
 </style>

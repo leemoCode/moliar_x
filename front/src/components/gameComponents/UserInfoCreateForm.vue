@@ -62,7 +62,7 @@
   <el-input
     class="data_input"
     :value="JSON.stringify(createData)"
-    style="margin-top: 30px; width: 300px; height: 600px; font-size: 16px"
+    style="margin-top: 30px; width: 300px; font-size: 16px"
     :rows="2"
     type="textarea"
     placeholder="Please input"
