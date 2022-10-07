@@ -40,6 +40,7 @@
                   :name="dataShowItem[item.key]"
                   :num="dataShowItem[item.key + '_num']"
                   :property="dataShowItem[item.key + '_property']"
+                  :type="1"
                 />
               </div>
             </div>
@@ -49,6 +50,7 @@
                   :name="dataShowItem[item.key]"
                   :num="dataShowItem[item.key + '_num']"
                   :property="dataShowItem[item.key + '_property']"
+                  :type="0"
                 />
               </div>
             </div>
